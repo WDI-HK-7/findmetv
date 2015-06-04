@@ -23,7 +23,7 @@ namespace :scrape do
 
         parsed_data_one_serie = Nokogiri::HTML(data_one_serie)
 
-        get_photo_link = parsed_data2.css ("#img_primary > div.image > a")
+        get_photo_link = parsed_data_one_serie.css ("#img_primary > div.image > a")
 
         next if get_photo_link.empty?
         
@@ -32,7 +32,7 @@ namespace :scrape do
 
         data_photo = open(url_photo)
 
-        parsed_data_photo = Nokogiri::HTML(data3)
+        parsed_data_photo = Nokogiri::HTML(data_photo)
         
         open_one_link(parsed_data_one_serie, parsed_data_photo, "tbody > tr > td > h1 > span.itemprop", "#primary-img", "tbody > tr > td > div > div.titlePageSprite.star-box-giga-star", "tbody > tr > td > div > time", "tbody > tr > td > h1 > span.nobr", "#overview-top > p[itemprop=description]", "div.infobar a span.itemprop", url_one_serie, "#overview-top > div[itemprop=actors] > a")
       end
@@ -47,9 +47,9 @@ def open_one_link(parsed_data_one_serie, parsed_data_photo, series_title, series
   length = parsed_data_one_serie.css(series_length)
   years = parsed_data_one_serie.css(series_years)
   recap = parsed_data_one_serie.css(series_recap)
-  category = parsed_data_one_serie.css(series_category)
+  categories = parsed_data_one_serie.css(series_category)
   photo = parsed_data_photo.css(series_photo)
-  cast = parsed_data_one_serie.css(series_cast)
+  casts = parsed_data_one_serie.css(series_cast)
 
   new_series = Serie.new
 
@@ -60,22 +60,20 @@ def open_one_link(parsed_data_one_serie, parsed_data_photo, series_title, series
   new_series.years = years.text if years.any?
   new_series.recap = recap.text if recap.any?
 
-  k=0
   categories.each_with_index do |category, index|
     if index == 0
-      new_series.category = category[index].text
+      new_series.category = category.text
     else
-      new_series["category#{index+1}"] = category[index].text
+      new_series["category#{index+1}"] = category.text
     end
   end
 
   total_cast = ""
-  l=0
-  casting.each_with_index do |cast, index|
-    if index == (cast.length - 1)
-      total_cast += cast[index].text
+  casts.each_with_index do |cast, index|
+    if index == (casts.length - 1)
+      total_cast += cast.text
     else 
-      total_cast += cast[index].text + " / "
+      total_cast += cast.text + " / "
     end
   end
 
