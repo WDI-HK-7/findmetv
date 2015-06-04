@@ -16,40 +16,40 @@ namespace :scrape do
         get_series_link = parsed_data.css("table.results > tr:nth-child(#{j}) > td.title > a")
         series_link = get_series_link.attribute("href").value
 
-        url2 = "http://www.imdb.com" + series_link
+        url_one_serie = "http://www.imdb.com" + series_link
 
-        data2 = open(url2)
+        data_one_serie = open(url_one_serie)
         # , 'User-Agent' => "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 
-        parsed_data2 = Nokogiri::HTML(data2)
+        parsed_data_one_serie = Nokogiri::HTML(data_one_serie)
 
         get_photo_link = parsed_data2.css ("#img_primary > div.image > a")
 
         next if get_photo_link.empty?
         
         photo_link = get_photo_link.attribute("href").value
-        url3 = "http://www.imdb.com" + photo_link
+        url_photo = "http://www.imdb.com" + photo_link
 
-        data3 = open(url3)
+        data_photo = open(url_photo)
 
-        parsed_data3 = Nokogiri::HTML(data3)
+        parsed_data_photo = Nokogiri::HTML(data3)
         
-        open_one_link(parsed_data2, parsed_data3, "tbody > tr > td > h1 > span.itemprop", "#primary-img", "tbody > tr > td > div > div.titlePageSprite.star-box-giga-star", "tbody > tr > td > div > time", "tbody > tr > td > h1 > span.nobr", "#overview-top > p[itemprop=description]", "div.infobar a span.itemprop", url2, "#overview-top > div[itemprop=actors] > a")
+        open_one_link(parsed_data_one_serie, parsed_data_photo, "tbody > tr > td > h1 > span.itemprop", "#primary-img", "tbody > tr > td > div > div.titlePageSprite.star-box-giga-star", "tbody > tr > td > div > time", "tbody > tr > td > h1 > span.nobr", "#overview-top > p[itemprop=description]", "div.infobar a span.itemprop", url_one_serie, "#overview-top > div[itemprop=actors] > a")
       end
     end
   end
 end
 
-def open_one_link(parsed_data2, parsed_data3, series_title, series_photo, series_rating, series_length, series_years, series_recap, series_category, series_link, series_cast)
+def open_one_link(parsed_data_one_serie, parsed_data_photo, series_title, series_photo, series_rating, series_length, series_years, series_recap, series_category, series_link, series_cast)
 
-  title = parsed_data2.css(series_title)
-  rating = parsed_data2.css(series_rating) 
-  length = parsed_data2.css(series_length)
-  years = parsed_data2.css(series_years)
-  recap = parsed_data2.css(series_recap)
-  category = parsed_data2.css(series_category)
-  photo = parsed_data3.css(series_photo)
-  cast = parsed_data2.css(series_cast)
+  title = parsed_data_one_serie.css(series_title)
+  rating = parsed_data_one_serie.css(series_rating) 
+  length = parsed_data_one_serie.css(series_length)
+  years = parsed_data_one_serie.css(series_years)
+  recap = parsed_data_one_serie.css(series_recap)
+  category = parsed_data_one_serie.css(series_category)
+  photo = parsed_data_photo.css(series_photo)
+  cast = parsed_data_one_serie.css(series_cast)
 
   new_series = Serie.new
 
@@ -61,25 +61,21 @@ def open_one_link(parsed_data2, parsed_data3, series_title, series_photo, series
   new_series.recap = recap.text if recap.any?
 
   k=0
-  while k < category.length do
-    if k == 0
-      new_series.category = category[k].text
-      k += 1
+  categories.each_with_index do |category, index|
+    if index == 0
+      new_series.category = category[index].text
     else
-      new_series["category#{k+1}"] = category[k].text
-      k += 1
+      new_series["category#{index+1}"] = category[index].text
     end
   end
 
   total_cast = ""
   l=0
-  while l < cast.length do
-    if l == (cast.length - 1)
-      total_cast += cast[l].text
-      l += 1
+  casting.each_with_index do |cast, index|
+    if index == (cast.length - 1)
+      total_cast += cast[index].text
     else 
-      total_cast += cast[l].text + " / "
-      l += 1
+      total_cast += cast[index].text + " / "
     end
   end
 
