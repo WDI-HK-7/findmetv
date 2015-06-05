@@ -7,7 +7,7 @@ class SeriesController < ApplicationController
     @serie = Serie.find_by_id(params[:id])
     if @serie.nil?
       render :json => {
-        :message => { :message => "Cannot find serie -- yeah" }
+        :message => { :message => "Cannot find serie" }
       }
     end
   end

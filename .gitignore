@@ -31,7 +31,5 @@ ng rvm < 1.11.0 or doing something fancy, ignore this:
 *.bowerrc
 bower.json
 
-# Ignore pow environment settings
-
 .DS_Store
 /bower_components/
