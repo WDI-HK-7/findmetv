@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603093122) do
+ActiveRecord::Schema.define(version: 20150605050229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,19 @@ ActiveRecord::Schema.define(version: 20150603093122) do
     t.string   "category2"
     t.string   "category3"
     t.string   "link"
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "like1"
+    t.integer  "like2"
+    t.integer  "like3"
+    t.integer  "like4"
+    t.integer  "like5"
+    t.integer  "dislike1"
+    t.integer  "dislike2"
+    t.integer  "dislike3"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

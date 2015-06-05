@@ -1,4 +1,5 @@
 json.array! @series do |serie|
+  json.id serie.id
   json.title serie.title
   json.rating serie.rating
   json.length serie.length
