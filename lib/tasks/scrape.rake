@@ -57,7 +57,7 @@ def open_one_link(parsed_data_one_serie, parsed_data_photo, series_title, series
   new_series.photo = photo.attribute("src").value
   new_series.rating = rating.text if rating.any?
   new_series.length = length.text if length.any?
-  new_series.years = years.text if years.any?
+  new_series.years = years.text 
   new_series.recap = recap.text if recap.any?
 
   categories.each_with_index do |category, index|

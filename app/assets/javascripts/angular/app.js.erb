@@ -1,0 +1,21 @@
+'use strict';
+
+var app = angular.module('findmetv', ['ngRoute', 'angularUtils.directives.dirDisqus']);
+
+app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+  $routeProvider.
+    // when('/', {
+    //   templateUrl: "<%= asset_path('static_pages/index.html') %>",
+    //   controller: 'StaticPagesCtrl'
+    // }).
+    when('/tv_series', {
+      templateUrl: "<%= asset_path('series/index.html') %>",
+      controller: 'SeriesIndexCtrl'
+    }).
+    when('/tv_series/:id', {
+      templateUrl: "<%= asset_path('series/show.html') %>",
+      controller: 'SeriesShowCtrl'
+    })
+
+  $locationProvider.html5Mode(true);    
+}]);
