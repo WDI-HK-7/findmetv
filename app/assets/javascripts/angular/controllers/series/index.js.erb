@@ -1,8 +1,6 @@
 app.controller('SeriesIndexCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
 
-  var url = "<%= ENV['URL'] %>" || "http://localhost:3000";
-
-  $http.get(url + '/series').success(function(response){
+  $http.get("<%= ENV['URL'] %>" + '/series').success(function(response){
     console.log(response);
     $scope.series = response;
   });
