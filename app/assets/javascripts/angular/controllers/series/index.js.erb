@@ -1,0 +1,8 @@
+app.controller('SeriesIndexCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
+
+  $http.get("<%= ENV['URL'] %>" + 'series').success(function(response){
+    console.log(response);
+    $scope.series = response;
+  });
+  
+}]);

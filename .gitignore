@@ -22,7 +22,8 @@ config/initializers/secret_token.rb
 # these should all be checked in to normalise the environment:
 # Gemfile.lock, .ruby-version, .ruby-gemset
 
-# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
+# unless supporti
+ng rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
 
 # if using bower-rails ignore default bower_components path bower.json files
@@ -30,5 +31,5 @@ config/initializers/secret_token.rb
 *.bowerrc
 bower.json
 
-# Ignore pow environment settings
-.powenv
+.DS_Store
+/bower_components/

@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div class="row">
+    <div ng-repeat="serie in series track by $index">
+      <div class="page-header">
+        {{ serie.title }}
+        {{ serie.rating }}
+        {{ serie.years }}
+      </div>
+    </div>
+  </div>
+</div>
