@@ -21,44 +21,30 @@
       <h3>{{ serie.title }}</h3>
     </div>
   </div>
-  <div class="row showResult">
-    <div class="col-xs-3">
-      <p>
-        <label for="amount">Length:</label>
-        <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-      </p>
-      <div id="slider-range"></div>
-      <div class="btn-group-vertical" role="group" aria-label="...">
-        <a type="button" class="btn btn-default">Crime</a>
-        <a type="button" class="btn btn-default">Drama</a>
-        <a type="button" class="btn btn-default">Thriller</a>
-        <a type="button" class="btn btn-default">Adventure</a>
-        <a type="button" class="btn btn-default">Fantasy</a>
-        <a type="button" class="btn btn-default">Mistery</a>
-        <a type="button" class="btn btn-default">Comedy</a>
-        <a type="button" class="btn btn-default">Talk-Show</a>
-        <a type="button" class="btn btn-default">Animation</a>
-        <a type="button" class="btn btn-default">Action</a>
-        <a type="button" class="btn btn-default">Sci-Fi</a>
-        <a type="button" class="btn btn-default">Horror</a>
-        <a type="button" class="btn btn-default">Reality-TV</a>
-        <a type="button" class="btn btn-default">Documentary</a>
-        <a type="button" class="btn btn-default">News</a>
-        <a type="button" class="btn btn-default">History</a>
-        <a type="button" class="btn btn-default">Romance</a>
-      </div>
-    </div>
-    <div class="col-xs-3">
+  <div class="row">
+    <div class="showResult col-xs-6">You Should Watch</div>
+    <div class="showNoRecom col-xs-6">You can try watching</div>
+  </div>
+  <dic class="row">
+    <div class="col-xs-3 showRecom1">
       <img ng-src="{{ first.photo }}" alt="{{ first.title }}" height="300" width="200">
       <h3>{{ first.title }}</h3>
     </div>
-    <div class="col-xs-3">
+    <div class="col-xs-3 showRecom2">
       <img ng-src="{{ second.photo }}" alt="{{ second.title }}" height="300" width="200">
       <h3>{{ second.title }}</h3>
     </div>
-    <div class="col-xs-3">
+    <div class="col-xs-3 showRecom3">
       <img ng-src="{{ third.photo }}" alt="{{ third.title }}" height="300" width="200">
       <h3>{{ third.title }}</h3>
+    </div>
+    <div class="col-xs-3 showRecom4">
+      <img ng-src="{{ fourth.photo }}" alt="{{ fourth.title }}" height="300" width="200">
+      <h3>{{ fourth.title }}</h3>
+    </div>
+    <div class="col-xs-2 showNoRecom" ng-repeat="serie in noRecom track by $index">
+      <img ng-src="{{ serie.photo }}" alt="{{ serie.title }}" height="300" width="200">
+      <h3>{{ serie.title }}</h3>
     </div>
   </div>
 </div>

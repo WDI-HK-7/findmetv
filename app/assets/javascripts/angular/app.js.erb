@@ -16,6 +16,10 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
       templateUrl: "<%= asset_path('series/best.html') %>",
       controller: 'SeriesBestCtrl'
     }).
+    when('/tv_series/category/:category', {
+      templateUrl: "<%= asset_path('series/category.html') %>",
+      controller: 'SeriesCategoryCtrl'
+    }).
     when('/tv_series/:id', {
       templateUrl: "<%= asset_path('series/show.html') %>",
       controller: 'SeriesShowCtrl'

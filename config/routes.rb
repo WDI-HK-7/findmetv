@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/findByName/:name' => 'series#findByName'
   get '/best'  => 'series#best'
   get '/worst' => 'series#worst'
+  get '/findByCategory/:category' => 'series#findByCategory'
   
   resources :votes, :only => [:index, :create]
 

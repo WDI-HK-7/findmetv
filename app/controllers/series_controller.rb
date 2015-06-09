@@ -36,6 +36,16 @@ class SeriesController < ApplicationController
     render 'index'
   end
 
+  def findByCategory
+    @series = Serie.search_by_category(params[:category, :category2, :category3]).order(like :desc).limit(28);
+    if @series.nil?
+      render :json => {
+        :message => { :message => "Cannot find serie" }
+      }
+    end
+    render 'index'
+  end
+
   def best
     @series = Serie.order(like: :desc).limit(16)
   end
