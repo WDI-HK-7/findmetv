@@ -12,9 +12,17 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
       templateUrl: "<%= asset_path('series/index.html') %>",
       controller: 'SeriesIndexCtrl'
     }).
+    when('/tv_series/best', {
+      templateUrl: "<%= asset_path('series/best.html') %>",
+      controller: 'SeriesBestCtrl'
+    }).
     when('/tv_series/:id', {
       templateUrl: "<%= asset_path('series/show.html') %>",
       controller: 'SeriesShowCtrl'
+    }).
+    when('/', {
+      templateUrl: "<%= asset_path('series/vote.html') %>",
+      controller: 'SeriesVoteCtrl'
     })
 
   $locationProvider.html5Mode(true);    
