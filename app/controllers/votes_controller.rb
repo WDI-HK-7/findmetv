@@ -12,6 +12,6 @@ class VotesController < ApplicationController
   private
 
   def vote_params
-    params.require(:vote).permit(:like1, :like2, :like3, :like4, :like5, :dislike1, :dislike2, :dislike3)
+    params.require(:vote).permit({:likes => []}, {:dislikes => []})
   end
 end

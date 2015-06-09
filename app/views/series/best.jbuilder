@@ -11,5 +11,4 @@ json.array! @series do |serie|
   json.cast serie.cast
   json.like serie.like
   json.dislike serie.dislike
-  json.photo serie.photo
 end

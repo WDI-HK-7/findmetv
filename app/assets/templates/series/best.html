@@ -1,28 +1,6 @@
 <div class="container-fluid">
-  <div class="row hideResult">
-    <div class="col-xs-6">
-      <h1>findmetv</h1>
-      <h2>Are you bored to death and have no idea what show to watch next? findmetv is your ultimate resource for tv shows discovery!</h2>
-    </div>
-  </div>
-  <div class="row hideResult">
-    <div class="col-xs-6">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="{{ placeholder }}" ng-model="seriesTitle">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button" ng-click="getseries()">Go!</button>
-        </span>
-      </div>
-    </div>
-  </div>
   <div class="row">
-    <div class="col-xs-2" ng-repeat="serie in series track by $index">
-      <img ng-src="{{ serie.photo }}" alt="{{ serie.title }}" height="300" width="200">
-      <h3>{{ serie.title }}</h3>
-    </div>
-  </div>
-  <div class="row showResult">
-    <div class="col-xs-3">
+    <div class="col-md-3 col-md-offset-1">
       <p>
         <label for="amount">Length:</label>
         <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
@@ -48,17 +26,21 @@
         <a type="button" class="btn btn-default">Romance</a>
       </div>
     </div>
-    <div class="col-xs-3">
-      <img ng-src="{{ first.photo }}" alt="{{ first.title }}" height="300" width="200">
-      <h3>{{ first.title }}</h3>
+    <div class="col-md-4">
+      <div ng-repeat="serie in best track by $index">
+        <div class="col-md-3">
+          <img src="{{ serie.photo }}" alt="{{ serie.title }}" height="150" width="100">
+          <h3>{{ serie.like }}</3>
+        </div>
+      </div>
     </div>
-    <div class="col-xs-3">
-      <img ng-src="{{ second.photo }}" alt="{{ second.title }}" height="300" width="200">
-      <h3>{{ second.title }}</h3>
-    </div>
-    <div class="col-xs-3">
-      <img ng-src="{{ third.photo }}" alt="{{ third.title }}" height="300" width="200">
-      <h3>{{ third.title }}</h3>
+    <div class="col-md-3">
+      <div ng-repeat="serie in worst track by $index">
+        <div class="col-md-4">
+          <img src="{{ serie.photo }}" alt="{{ serie.title }}" height="150" width="100">
+          <h3>{{ serie.dislike }}</3>
+        </div>
+      </div>
     </div>
   </div>
 </div>

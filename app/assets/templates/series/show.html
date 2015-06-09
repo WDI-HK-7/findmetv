@@ -3,24 +3,30 @@
     <div>
       <div class="container">
         <div class="row">
-          <div class="col-xs-12 col-md-4">
-            <img src="{{ serie.photo }}" alt="{{ serie.title }}" height="600" width="400">
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <a href="#" class="thumbnail">
+              <img src="{{ serie.photo }}" alt="{{ serie.title }}">
+            </a>
           </div>
-          <div class="col-xs-12 col-md-4">
-            {{ serie.title }}
-            <i class="fa fa-caret-up"></i>{{ serie.like }}
-            <i class="fa fa-caret-down"></i>{{ serie.dislike }}
-            <i class="fa fa-star"></i>{{ serie.rating }}
-            {{ serie.length }}
-            {{ serie.years }}
-            {{ serie.recap }}
-            <a href="#" target="_blank">{{ serie.category }}</a>
-            <a href="#" target="_blank">{{ serie.category2 }}</a>
-            <a href="#" target="_blank">{{ serie.category3 }}</a>
-            {{ serie.cast }}
-            <a href="{{ serie.link }}" target="_blank">Imdb</a> 
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <h1>{{ serie.title }}</h1>
+            <span>
+              <i class="fa fa-caret-up"></i>{{ serie.like }}
+              <i class="fa fa-caret-down"></i>{{ serie.dislike }}
+              <i class="fa fa-star"></i>{{ serie.rating }}
+              <a href="{{ serie.link }}" target="_blank">Imdb</a> 
+            </span>
+            <p>{{ serie.recap }}</p>
+            <p>{{ serie.length }}</p>
+            <p>{{ serie.years }}</p>
+            <p>{{ serie.cast }}</p>
+            <span>
+              <a href="#" target="_blank">{{ serie.category }}</a>
+              <a href="#" target="_blank">{{ serie.category2 }}</a>
+              <a href="#" target="_blank">{{ serie.category3 }}</a>
+            </span>
           </div>
-          <div class="col-xs-12 col-md-4">
+          <div class="col-sm-12 col-md-4">
             <dir-disqus disqus-shortname="findmetv"
               disqus-identifier="{{ serie.title }}"
               disqus-url="{{ serie.link }}">
