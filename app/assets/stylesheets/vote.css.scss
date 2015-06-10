@@ -1,0 +1,37 @@
+.row {
+  text-align: center;
+}
+
+@media (min-width: 992px) {
+  h1 {
+    padding-top: 6%;
+    font-size: 200px;
+    font-family: SignPainter;
+  }
+}
+
+@media (max-width: 991px) {
+  h1 {
+    padding-top: 3%;
+    font-size: 100px;
+    font-family: SignPainter;
+  }  
+}
+
+.heading {
+  padding-bottom: 20px;
+}
+
+.blue-button {
+  background-color: #3020C8;
+  color: white;
+  font-size: 20px;
+  border-color: #3020C8;
+}
+
+.inputSerie {
+  font-size: 20px;
+  height: 42px;
+  color: #3020C8;
+  border-color: #3020C8;
+}

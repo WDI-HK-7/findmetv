@@ -1,0 +1,49 @@
+@media (max-width: 768px) {
+  .bestImage {
+    width: 180px;
+    height: 240px;
+  }
+
+  .button1, .button2 {
+    width: 100px;
+    font-size: 10px;
+  }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .bestImage {
+    width: 180px;
+    height: 240px;
+  }
+
+  .button1, .button2 {
+    width: 100px;
+    font-size: 10px;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .bestImage {
+    width: 130px;
+    height: 195px;
+  }
+
+  .button1, .button2 {
+    width: 150px;
+    font-size: 20px;
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .bestImage {
+    width: 180px;
+    height: 240px;
+  }
+
+  .button1, .button2 {
+    width: 200px;
+  }
+}
