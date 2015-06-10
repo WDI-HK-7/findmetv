@@ -6,6 +6,7 @@ app.controller('SeriesVoteCtrl', ['$scope', '$http', '$location', '$routeParams'
   $('.showRecom3').hide();
   $('.showRecom4').hide();
   $('.showNoRecom').hide();
+  $('.showResultFirst').hide();
 
   $scope.noRecom = [];
   $scope.series = [];
@@ -13,8 +14,12 @@ app.controller('SeriesVoteCtrl', ['$scope', '$http', '$location', '$routeParams'
   var like = [];
   var dislike = [];
   var recommendation = {};
-  var newPlaceholder = ["Add 3 TV shows you like", "Add 2 more", "Add a last one", "Now add 2 TV shows you didn't enjoy", "Add another one to get results"];
+  var newPlaceholder = ["Add a TV show you like", "Add another one", "Add a last one", "Add one you didn't enjoy", "Add a last one"];
   $scope.placeholder = newPlaceholder[counter];
+
+  var newDoThat = ["Are you bored to death and have no idea what show to watch next? findmetv is your ultimate resource for tv shows discovery!", "Add another TV show you liked. Or that one you are watching right now and can't take your eyes off the screen with", "Add a last series you loved. This it the last one. Promise.", "Now give us two TV shows you didn't enjoy at all", "Add one last TV show you didn't like and get an accurate recommendation to discover new TV shows!" ]
+  $scope.doThat = newDoThat[counter];
+
 
   $scope.getseries = function() {
 
@@ -22,6 +27,10 @@ app.controller('SeriesVoteCtrl', ['$scope', '$http', '$location', '$routeParams'
       
     $http.get("<%= ENV['URL'] %>" + 'findByName/' + $scope.seriesTitle.replace(" ","%20")).success(function(response) {
       // console.log(response);
+
+      $('.showResultFirst').show();
+      $('.hideResultFirst').hide();
+
       $scope.series.push(response[0]);
 
       if (counter < 3) {
@@ -34,6 +43,7 @@ app.controller('SeriesVoteCtrl', ['$scope', '$http', '$location', '$routeParams'
       // console.log(like);
       // console.log(dislike);
       $scope.seriesTitle = null;
+      $scope.doThat = newDoThat[counter];
       $scope.placeholder = newPlaceholder[counter];
 
       if (counter == 5) {

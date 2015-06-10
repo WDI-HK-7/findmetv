@@ -10,18 +10,4 @@ app.controller('SeriesBestCtrl', ['$scope', '$http', '$location', function($scop
     $scope.worst = response;
   });
 
-  $(function() {
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 10,
-      max: 100,
-      values: [ 20, 90 ],
-      slide: function( event, ui ) {
-        $( "#amount" ).val( "min" + ui.values[ 0 ] + " - min" + ui.values[ 1 ] );
-      }
-    });
-    $( "#amount" ).val($( "#slider-range" ).slider( "values", 0 ) + "min" +
-      " - " + $( "#slider-range" ).slider( "values", 1 ) + "min" );
-  });
-  
 }]);

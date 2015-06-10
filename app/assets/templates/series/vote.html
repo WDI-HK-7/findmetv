@@ -1,21 +1,29 @@
+<nav class="navbar navbar-default navbar-fixed-top showResultFirst">
+  <div class="container showResultFirst">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/tv_series/best" style="color:white;">The best tv</a></li>
+      </ul>
+      <a class="navbar-brand title" style="color:white;" href="/">findmetv</a>
+  </div>
+</nav>
 <div class="container-fluid">
-  <div class="row hideResult">
-    <div class="col-xs-6">
-      <h1>findmetv</h1>
-      <h2>Are you bored to death and have no idea what show to watch next? findmetv is your ultimate resource for tv shows discovery!</h2>
+  <div class="row heading">
+    <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+      <h1 class="hideResultFirst">findmetv</h1>
+      <h3 class="hideResult">{{ doThat }}</h3>
     </div>
   </div>
   <div class="row hideResult">
-    <div class="col-xs-6">
+    <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
       <div class="input-group">
         <input type="text" class="form-control inputSerie" placeholder="{{ placeholder }}" ng-model="seriesTitle">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button" ng-click="getseries()">Go!</button>
+          <button class="btn btn-default blue-button" type="button" ng-click="getseries()">Add one!</button>
         </span>
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row col-xs-offset-1">
     <div class="col-xs-2" ng-repeat="serie in series track by $index">
       <img ng-src="{{ serie.photo }}" alt="{{ serie.title }}" height="300" width="200">
       <h3>{{ serie.title }}</h3>

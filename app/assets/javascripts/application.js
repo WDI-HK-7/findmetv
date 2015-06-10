@@ -16,4 +16,5 @@
 //= require angular/angular
 //= require angular-route/angular-route
 //= require angular-utils-disqus/dirDisqus
+//= require angular-bootstrap/ui-bootstrap
 //= require_tree .
