@@ -1,36 +1,73 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/tv_series/best" style="color:white;">The best tv</a></li>
+      </ul>
+      <a class="navbar-brand title" style="color:white;" href="/">findmetv</a>
+  </div>
+</nav>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-3 col-md-offset-1">
-      <p>
-        <label for="amount">Length:</label>
-        <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-      </p>
-      <div id="slider-range"></div>
-      <div class="btn-group-vertical" role="group" aria-label="...">
-        <a type="button" class="btn btn-default">Crime</a>
-        <a type="button" class="btn btn-default">Drama</a>
-        <a type="button" class="btn btn-default">Thriller</a>
-        <a type="button" class="btn btn-default">Adventure</a>
-        <a type="button" class="btn btn-default">Fantasy</a>
-        <a type="button" class="btn btn-default">Mistery</a>
-        <a type="button" class="btn btn-default">Comedy</a>
-        <a type="button" class="btn btn-default">Talk-Show</a>
-        <a type="button" class="btn btn-default">Animation</a>
-        <a type="button" class="btn btn-default">Action</a>
-        <a type="button" class="btn btn-default">Sci-Fi</a>
-        <a type="button" class="btn btn-default">Horror</a>
-        <a type="button" class="btn btn-default">Reality-TV</a>
-        <a type="button" class="btn btn-default">Documentary</a>
-        <a type="button" class="btn btn-default">News</a>
-        <a type="button" class="btn btn-default">History</a>
-        <a type="button" class="btn btn-default">Romance</a>
+    <!-- <div class="col-xs-2">
+      
+      <div ng-controller="SeriesBestCtrl">
+        <div class="btn-group" dropdown on-toggle="toggled(open)">
+          <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+            Button dropdown <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="col-md-7">
-      <div ng-repeat="serie in category track by $index">
-        <div class="col-md-2">
-          <img src="{{ serie.photo }}" alt="{{ serie.title }}" height="150" width="100">
-          <h3>{{ serie.like }}</3>
+
+
+      <div class="btn-group">
+        <button type="button" class="btn btn-default btn-lg dropdown-toggle button1" data-toggle="dropdown" aria-expanded="false">
+          By length <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">Short</a></li>
+          <li><a href="#">Average</a></li>
+          <li><a href="#">Long</a></li>
+        </ul>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-default btn-lg dropdown-toggle button2" data-toggle="dropdown" aria-expanded="false">
+          By category <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a type="button" class="btn btn-default">Crime</a></li>
+          <li><a type="button" class="btn btn-default">Drama</a></li>
+          <li><a type="button" class="btn btn-default">Thriller</a></li>
+          <li><a type="button" class="btn btn-default">Adventure</a></li>
+          <li><a type="button" class="btn btn-default">Fantasy</a></li>
+          <li><a type="button" class="btn btn-default">Mistery</a></li>
+          <li><a type="button" class="btn btn-default">Comedy</a></li>
+          <li><a type="button" class="btn btn-default">Talk-Show</a></li>
+          <li><a type="button" class="btn btn-default">Animation</a></li>
+          <li><a type="button" class="btn btn-default">Action</a></li>
+          <li><a type="button" class="btn btn-default">Sci-Fi</a></li>
+          <li><a type="button" class="btn btn-default">Horror</a></li>
+          <li><a type="button" class="btn btn-default">Reality-TV</a></li>
+          <li><a type="button" class="btn btn-default">Documentary</a></li>
+          <li><a type="button" class="btn btn-default">News</a></li>
+          <li><a type="button" class="btn btn-default">History</a></li>
+          <li><a type="button" class="btn btn-default">Romance</a></li>
+        </ul>
+      </div>
+   </div> -->
+
+    <div class="col-xs-10 col-xs-offset-1">
+      <h2 class="underline">Most liked TV series in {{ category }}</h2>
+      <div ng-repeat="serie in best track by $index">
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+          <h3 class="plusminus"><i class="fa fa-caret-up"></i> {{ serie.like }}</h3>
+          <a href="/tv_series/{{ serie.id }}"><img class="bestImage" src="{{ serie.photo }}" alt="{{ serie.title }}" height="210" width="160"></a>
         </div>
       </div>
     </div>

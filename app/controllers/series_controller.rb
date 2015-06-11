@@ -21,7 +21,7 @@ class SeriesController < ApplicationController
       }
     else
       @serie.update(serie_params)
-      render 'index'
+      render :json => @serie
     end
   end
 
@@ -36,7 +36,7 @@ class SeriesController < ApplicationController
   end
 
   def findByCategory
-    @series = Serie.search_by_category(params[:category, :category2, :category3]).order(like :desc).limit(28);
+    @series = Serie.search_by_category(params[:category, :category2, :category3]);
     if @series.nil?
       render :json => {
         :message => { :message => "Cannot find serie" }

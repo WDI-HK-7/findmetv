@@ -11,3 +11,4 @@ json.cast @serie.cast
 json.like @serie.like
 json.dislike @serie.dislike
 json.link @serie.link
+json.id @serie.id

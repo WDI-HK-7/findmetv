@@ -19,7 +19,16 @@ class RecommendController < ApplicationController
       end
     end
     
-    render json: Serie.find(filterRecommendations(recommendations))
+    recommendSeries = filterRecommendations(recommendations)
+
+    if recommendSeries.length < 4
+      Serie.select(:id).order(like: :desc).limit(4-recommendSeries.length).each do |s|
+        recommendSeries << s.id
+      end
+      render json: Serie.find(recommendSeries)
+    else
+      render json: Serie.find(recommendSeries)
+    end
   end
 
   private
