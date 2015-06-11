@@ -13,7 +13,7 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-sm-6 thumbnail">
-              <img src="{{ serie.photo }}" alt="{{ serie.title }}">
+              <img src="{{ serie.photo }}" alt="{{ serie.title }}" height="720" width="525">
           </div>
           <div class="col-xs-12 col-sm-6 seriesBox">
             <h1 class="theTitle border">{{ serie.title }}</h1>
@@ -34,8 +34,8 @@
             </div>
             <div class="border">
               <span class="likesDislikes">
-                <i class="fa fa-caret-up"></i>{{ serie.like }}
-                <i class="fa fa-caret-down"></i>{{ serie.dislike }}
+                <div class="likeys col-xs-6"><i class="fa fa-caret-up"></i> {{ serie.like }}</div>
+                <i class="fa fa-caret-down"></i> {{ serie.dislike }}
               </span>
             </div>
             <p class="border borderBottom">{{ serie.years }}</p>

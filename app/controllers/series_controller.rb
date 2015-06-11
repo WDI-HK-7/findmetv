@@ -46,7 +46,7 @@ class SeriesController < ApplicationController
   end
 
   def best
-    @series = Serie.order(like: :desc).limit(16)
+    @series = Serie.order(like: :desc).limit(24)
   end
 
   def worst

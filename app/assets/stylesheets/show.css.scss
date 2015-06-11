@@ -1,5 +1,5 @@
 .theTitle {
-  font-size: 70px;
+  font-size: 50px;
   font-family: Helvetica;
   padding-top: 15px;
 }
@@ -15,6 +15,7 @@
 
 .thumbnail {
   border: 0px;
+  border-left: 3px dashed black;
 }
 
 .length {
@@ -58,4 +59,8 @@ a {
   font-size: 25px;
   font-weight: bold;
   font-style: italic;
+}
+
+.likeys {
+  border-right: 3px dashed black;  
 }

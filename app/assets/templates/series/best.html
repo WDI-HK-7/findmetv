@@ -8,7 +8,7 @@
 </nav>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-xs-2">
+    <!-- <div class="col-xs-2">
       
       <div ng-controller="SeriesBestCtrl">
         <div class="btn-group" dropdown on-toggle="toggled(open)">
@@ -60,20 +60,23 @@
           <li><a type="button" class="btn btn-default">Romance</a></li>
         </ul>
       </div>
-   </div>
-    <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6">
+   </div> -->
+
+    <div class="col-xs-10 col-xs-offset-1">
+      <h2 class="underline">Most liked TV series</h2>
       <div ng-repeat="serie in best track by $index">
-        <div class="col-xs-6 col-sm-4">
-          <img class="bestImage" src="{{ serie.photo }}" alt="{{ serie.title }}">
-          <h3><i class="fa fa-2x fa-caret-up"></i> {{ serie.like }}</h3>
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+          <h3 class="plusminus"><i class="fa fa-caret-up"></i> {{ serie.like }}</h3>
+          <a href="/tv_series/{{ serie.id }}"><img class="bestImage" src="{{ serie.photo }}" alt="{{ serie.title }}" height="210" width="160"></a>
         </div>
       </div>
     </div>
-    <div class="col-xs-offset-2 col-xs-10 col-sm-10 col-md-6 col-lg-6">
+    <div class="col-xs-10 col-xs-offset-1">
+      <h2 class="underline bottomUnderline">Most disliked TV series</h2>
       <div ng-repeat="serie in worst track by $index">
-        <div class="col-xs-6 col-sm-4">
-          <img class="bestImage" src="{{ serie.photo }}" alt="{{ serie.title }}">
-          <h3><i class="fa fa-2x fa-caret-down"></i> {{ serie.dislike }}</h3>
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+          <h3 class="plusminus"><i class="fa fa-caret-down"></i> {{ serie.dislike }}</h3>
+          <a href="/tv_series/{{ serie.id }}"><img class="bestImage" src="{{ serie.photo }}" alt="{{ serie.title }}" height="210" width="160"></a>
         </div>
       </div>
     </div>
