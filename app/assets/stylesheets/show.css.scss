@@ -1,0 +1,61 @@
+.theTitle {
+  font-size: 70px;
+  font-family: Helvetica;
+  padding-top: 15px;
+}
+
+.seriesBox {
+  font-family: Helvetica;
+  border-left: 3px dashed black;
+  border-right: 3px dashed black;
+  margin-top: 5px;
+  padding-bottom: 15px;
+  color: black;
+}
+
+.thumbnail {
+  border: 0px;
+}
+
+.length {
+  font-size: 50px;
+  border-right: 3px dashed black;
+  color: #3020C8;
+  font-weight: bold;
+}
+
+.border {
+  border-top: 3px dashed black;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 0px;
+  vertical-align: middle;
+}
+
+a {
+  color: black;
+}
+
+.borderBottom {
+  border-bottom: 3px dashed black;
+  font-size: 40px;
+}
+
+.stars, .likesDislikes {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.recap {
+  font-size: 25px;
+}
+
+.cast {
+  font-size: 18px;
+}
+
+.category {
+  font-size: 25px;
+  font-weight: bold;
+  font-style: italic;
+}

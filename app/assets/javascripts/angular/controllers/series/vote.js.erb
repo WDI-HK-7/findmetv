@@ -1,284 +1,226 @@
 app.controller('SeriesVoteCtrl', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams){
 
-  $('.showResult').hide();
-  $('.showRecom1').hide();
-  $('.showRecom2').hide();
-  $('.showRecom3').hide();
-  $('.showRecom4').hide();
-  $('.showNoRecom').hide();
-  $('.showResultFirst').hide();
+  var URL = "<%= ENV['URL'] %>";
 
   $scope.noRecom = [];
   $scope.series = [];
+
   var counter = 0;
   var like = [];
   var dislike = [];
   var recommendation = {};
-  var newPlaceholder = ["Add a TV show you like", "Add another one", "Add a last one", "Add one you didn't enjoy", "Add a last one"];
-  $scope.placeholder = newPlaceholder[counter];
 
-  var newDoThat = ["Are you bored to death and have no idea what show to watch next? findmetv is your ultimate resource for tv shows discovery!", "Add another TV show you liked. Or that one you are watching right now and can't take your eyes off the screen with", "Add a last series you loved. This it the last one. Promise.", "Now give us two TV shows you didn't enjoy at all", "Add one last TV show you didn't like and get an accurate recommendation to discover new TV shows!" ]
-  $scope.doThat = newDoThat[counter];
+  $scope.placeholder = [
+    "Add a TV show you like",
+    "Add another one",
+    "Add a last one",
+    "Add one you didn't enjoy",
+    "Add a last one"]
+
+  $scope.instructions = [
+    "Are you bored to death and have no idea what show to watch next? findmetv is your ultimate resource for tv shows discovery!", 
+    "Add another TV show you liked. Or that one you are watching right now and can't take your eyes off the screen with", 
+    "Add a last series you loved. This it the last one. Promise.",
+    "Now give us two TV shows you didn't enjoy at all",
+    "Add one last TV show you didn't like and get an accurate recommendation to discover new TV shows!"]
 
 
-  $scope.getseries = function() {
+  $scope.seriesLike = [];
 
-    // var getTitle = $scope.seriesTitle).replace(" ","%20");
-      
-    $http.get("<%= ENV['URL'] %>" + 'findByName/' + $scope.seriesTitle.replace(" ","%20")).success(function(response) {
-      // console.log(response);
-
-      $('.showResultFirst').show();
-      $('.hideResultFirst').hide();
-
-      $scope.series.push(response[0]);
-
-      if (counter < 3) {
-        like.push(response[0].id);
-      } else {
-        dislike.push(response[0].id);
-      }
-
-      counter += 1;
-      // console.log(like);
-      // console.log(dislike);
-      $scope.seriesTitle = null;
-      $scope.doThat = newDoThat[counter];
-      $scope.placeholder = newPlaceholder[counter];
-
-      if (counter == 5) {
-
-        $('.hideResult').hide();
-
-        for (var o = 0; o < like.length; o++) {
-          $http.get("<%= ENV['URL'] %>" + "series/" + like[o]).success(function(response){
-            console.log(response);
-            var currentLikes = response.like;
-            var newLikes = currentLikes + 1;
-            var data = {
-              serie: {
-                like: newLikes
-              }
-            }
-
-            $http.patch("<%= ENV['URL'] %>" + "series/" + like[o], data).success(function(response) {
-            })
-          })
-        }
-        
-        for (var p = 0; p < like.length; p++) {
-          $http.get("<%= ENV['URL'] %>" + "series/" + dislike[p]).success(function(response){
-            console.log(response);
-            var currentDislikes = response.dislike;
-            var newDislikes = currentDislikes + 1;
-            var data = {
-              serie: {
-                like: newDislikes
-              }
-            }
-
-            $http.patch("<%= ENV['URL'] %>" + "series/" + dislike[p], data).success(function(response) {
-            })
-          })
-        }
-
-        var data = {
-          vote: {
-            likes: like,
-            dislikes: dislike
-          }
-        };
-
-        $http.post("<%= ENV['URL'] %>" + "votes", data).success(function(response) {
-          console.log(response);
-        });
-
-        $http.get("<%= ENV['URL'] %>" + "votes").success(function(response) {
-          for (var i = 0; i < response.length; i++) {
-            // console.log("It's calling this");
-            containsAll(like[0], like[1], response[i].likes);
-            containsAll(like[0], like[2], response[i].likes);
-            containsAll(like[1], like[2], response[i].likes);
-          }
-
-          var like0 = like[0];
-          var like1 = like[1];
-          var like2 = like[2];
-          var dislike0 = dislike[0];
-          var dislike1 = dislike[1];
-
-          delete recommendation[like0];
-          delete recommendation[like1];
-          delete recommendation[like2];
-          delete recommendation[dislike0];
-          delete recommendation[dislike1];
-          
-          console.log(recommendation);
-
-          var recomValue = $.map(recommendation, function(value, index) {
-            return [value];
-          });
-          // console.log(recomValue);
-
-          var recomKey = $.map(recommendation, function(index, key) {
-            return [key];
-          });
-          // console.log(recomKey);
-          
-          var firstValue = 0;
-          var secondValue = 0;
-          var thirdValue = 0;
-          var fourthValue = 0;
-          var first = 0;
-          var second = 0;
-          var third = 0;
-          var fourth = 0;
-
-          for (var n = 0; n < recomValue.length; n++) {
-
-            if (recomValue[n] >= firstValue) {
-              fourthValue = thirdValue;
-              thirdValue = secondValue;
-              secondValue = firstValue;
-              firstValue = recomValue[n];
-              fourth = third;
-              third = second;
-              second = first;
-              first = recomKey[n];
-            } else if ((firstValue >= recomValue[n]) && (recomValue[n] >= secondValue)) {
-              fourthValue = thirdValue;
-              thirdValue = secondValue;
-              secondValue = recomValue[n];
-              fourth = third;
-              third = second;
-              second = recomKey[n];
-            } else if ((secondValue >= recomValue[n]) && (recomValue[n] >= thirdValue)) {
-              fourthValue = thirdValue;
-              thirdValue = recomValue[n];
-              fourth = third;
-              third = recomKey[n];
-            } else if ((thirdValue >= recomValue[n]) && (recomValue[n] >= fourthValue)) {
-              fourthValue = recomValue[n];
-              fourth = recomKey[n];
-            }
-          }
-
-          // console.log(first);
-          // console.log(second);
-          // console.log(third);
-
-          $http.get("<%= ENV['URL'] %>" + "series/" + first).success(function(response) {
-            // console.log(response);
-            $scope.first = response;
-          });
-
-          $http.get("<%= ENV['URL'] %>" + "series/" + second).success(function(response) {
-            // console.log(response);
-            $scope.second = response;
-          });
-
-          $http.get("<%= ENV['URL'] %>" + "series/" + third).success(function(response) {
-            // console.log(response);
-            $scope.third = response;
-          });
-
-          $http.get("<%= ENV['URL'] %>" + "series/" + fourth).success(function(response) {
-            // console.log(response);
-            $scope.fourth = response;
-          });
-
-          if (fourth > 0) {
-            $('.showResult').show();
-            $('.showRecom1').show();
-            $('.showRecom2').show();
-            $('.showRecom3').show();
-            $('.showRecom4').show();
-          } else if ((fourth == 0) && (third > 0)) {
-            $('.showResult').show();
-            $('.showNoRecom').show();
-            $('.showRecom1').show();
-            $('.showRecom2').show();
-            $('.showRecom3').show();
-
-            $http.get("<%= ENV['URL'] %>" + 'best').success(function(foobar){
-              console.log(foobar);
-              $scope.noRecom.push(foobar[0]);
-            });
-
-          } else if ((third == 0) && (second > 0)) {
-            $('.showResult').show();
-            $('.showNoRecom').show();
-            $('.showRecom1').show();
-            $('.showRecom2').show();
-
-            $http.get("<%= ENV['URL'] %>" + 'best').success(function(foobar){
-              console.log(foobar);
-              $scope.noRecom.push(foobar[0]);
-              $scope.noRecom.push(foobar[1]);
-            });
-          } else if ((second == 0) && (first > 0)) {
-            $('.showResult').show();
-            $('.showNoRecom').show();
-            $('.showRecom1').show();
-
-            $http.get("<%= ENV['URL'] %>" + 'best').success(function(foobar){
-              console.log(foobar);
-              $scope.noRecom.push(foobar[0]);
-              $scope.noRecom.push(foobar[1]);
-              $scope.noRecom.push(foobar[2]);
-            });
-          } else if (first == 0) {
-            $('.showNoRecom').show();
-
-            $http.get("<%= ENV['URL'] %>" + 'best').success(function(foobar){
-              console.log(foobar);
-              $scope.noRecom.push(foobar[0]);
-              $scope.noRecom.push(foobar[1]);
-              $scope.noRecom.push(foobar[2]);
-              $scope.noRecom.push(foobar[3]);
-            });
-          }
-
-        });
-
-      }
-    });
-
+  $scope.addSerie = function() {
+    $scope.seriesLike.push($scope.seriesTitle);
+    $('#members_value').val('');
+    if ($scope.seriesLike.length >= 5){
+      getRecommendations();
+    }
   }
 
-  function containsAll(needles, moreNeedles, haystack){
-    // console.log("It's also calling this");
-    if((haystack.indexOf(needles) > -1) && (haystack.indexOf(moreNeedles) > -1)) {
-      // console.log('needles == ' + needles);
-      // console.log('moreNeedles == ' + moreNeedles);
-      // console.log('haystack == ' + haystack.length);
-      // console.log('recomendation == ' + recommendation.length);
-
-      for (var j = 0; j < haystack.length; j++) {
-        
-        if (recommendation[haystack[j]] == null) {
-          recommendation[haystack[j]] = 1;
-        } else {
-          recommendation[haystack[j]] += 1;
-        }
-
-      }
+  var getRecommendations = function() {
+    
+    var data = {
+      series: _.pluck( _.pluck($scope.seriesLike, 'originalObject'), 'id')
     }
 
-  }
-  
-  $(function() {
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 10,
-      max: 100,
-      values: [ 20, 90 ],
-      slide: function( event, ui ) {
-        $( "#amount" ).val( "min" + ui.values[ 0 ] + " - min" + ui.values[ 1 ] );
-      }
+    $http.post(URL + 'recommend', data).success(function(recommendations){
+      $scope.recommended = recommendations;
     });
-    $( "#amount" ).val($( "#slider-range" ).slider( "values", 0 ) + "min" +
-      " - " + $( "#slider-range" ).slider( "values", 1 ) + "min" );
-  });
+  }
+
+
+  // $scope.getRecommendations = function() {
+
+  //   $('.hideResult').hide();
+
+  //   for (var o = 0; o < like.length; o++) {
+  //     $http.get(URL + "series/" + like[o]).success(function(response){
+  //       var currentLikes = response.like;
+  //       var newLikes = currentLikes + 1;
+  //       var data = {serie: {like: newLikes } }
+
+  //       $http.patch(URL + "series/" + like[o], data).success(function(response) {})
+  //     })
+  //   }
+      
+  //   for (var p = 0; p < dislike.length; p++) {
+  //     $http.get(URL + "series/" + dislike[p]).success(function(response){
+  //       var currentDislikes = response.dislike;
+  //       var newDislikes = currentDislikes + 1;
+  //       var data = {serie: {dislike: newDislikes } }
+
+  //       $http.patch(URL + "series/" + dislike[p], data).success(function(response) {})
+  //     })
+  //   }
+
+  //   var data = {vote: {likes: like, dislikes: dislike } };
+
+  //   $http.post(URL + "votes", data).success(function(response) {});
+
+  //   $http.get(URL + "votes").success(function(response) {
+  //     for (var i = 0; i < response.length; i++) {
+  //       containsAll(like[0], like[1], response[i].likes);
+  //       containsAll(like[0], like[2], response[i].likes);
+  //       containsAll(like[1], like[2], response[i].likes);
+  //     }
+
+  //     var like0 = like[0];
+  //     var like1 = like[1];
+  //     var like2 = like[2];
+  //     var dislike0 = dislike[0];
+  //     var dislike1 = dislike[1];
+
+  //     delete recommendation[like0];
+  //     delete recommendation[like1];
+  //     delete recommendation[like2];
+  //     delete recommendation[dislike0];
+  //     delete recommendation[dislike1];
+        
+
+  //     var recomValue = $.map(recommendation, function(value, index) {
+  //       return [value];
+  //     });
+
+  //     var recomKey = $.map(recommendation, function(index, key) {
+  //       return [key];
+  //     });
+      
+  //     var firstValue = 0;
+  //     var secondValue = 0;
+  //     var thirdValue = 0;
+  //     var fourthValue = 0;
+  //     var first = 0;
+  //     var second = 0;
+  //     var third = 0;
+  //     var fourth = 0;
+
+  //     for (var n = 0; n < recomValue.length; n++) {
+
+  //       if (recomValue[n] >= firstValue) {
+  //         fourthValue = thirdValue;
+  //         thirdValue = secondValue;
+  //         secondValue = firstValue;
+  //         firstValue = recomValue[n];
+  //         fourth = third;
+  //         third = second;
+  //         second = first;
+  //         first = recomKey[n];
+  //       } else if ((firstValue >= recomValue[n]) && (recomValue[n] >= secondValue)) {
+  //         fourthValue = thirdValue;
+  //         thirdValue = secondValue;
+  //         secondValue = recomValue[n];
+  //         fourth = third;
+  //         third = second;
+  //         second = recomKey[n];
+  //       } else if ((secondValue >= recomValue[n]) && (recomValue[n] >= thirdValue)) {
+  //         fourthValue = thirdValue;
+  //         thirdValue = recomValue[n];
+  //         fourth = third;
+  //         third = recomKey[n];
+  //       } else if ((thirdValue >= recomValue[n]) && (recomValue[n] >= fourthValue)) {
+  //         fourthValue = recomValue[n];
+  //         fourth = recomKey[n];
+  //       }
+  //     }
+
+  //     $http.get(URL + "series/" + first).success(function(response) {
+  //       $scope.first = response;
+  //     });
+
+  //     $http.get(URL + "series/" + second).success(function(response) {
+  //       $scope.second = response;
+  //     });
+
+  //     $http.get(URL + "series/" + third).success(function(response) {
+  //       $scope.third = response;
+  //     });
+
+  //     $http.get(URL + "series/" + fourth).success(function(response) {
+  //       $scope.fourth = response;
+  //     });
+
+  //     if (fourth > 0) {
+  //       $('.showResult').show();
+  //       $('.showRecom1').show();
+  //       $('.showRecom2').show();
+  //       $('.showRecom3').show();
+  //       $('.showRecom4').show();
+  //     } else if ((fourth == 0) && (third > 0)) {
+  //       $('.showResult').show();
+  //       $('.showNoRecom').show();
+  //       $('.showRecom1').show();
+  //       $('.showRecom2').show();
+  //       $('.showRecom3').show();
+
+  //       $http.get(URL + 'best').success(function(foobar){
+  //         $scope.noRecom.push(foobar[0]);
+  //       });
+
+  //     } else if ((third == 0) && (second > 0)) {
+  //       $('.showResult').show();
+  //       $('.showNoRecom').show();
+  //       $('.showRecom1').show();
+  //       $('.showRecom2').show();
+
+  //       $http.get(URL + 'best').success(function(foobar){
+  //         $scope.noRecom.push(foobar[0]);
+  //         $scope.noRecom.push(foobar[1]);
+  //       });
+  //     } else if ((second == 0) && (first > 0)) {
+  //       $('.showResult').show();
+  //       $('.showNoRecom').show();
+  //       $('.showRecom1').show();
+
+  //       $http.get(URL + 'best').success(function(foobar){
+  //         $scope.noRecom.push(foobar[0]);
+  //         $scope.noRecom.push(foobar[1]);
+  //         $scope.noRecom.push(foobar[2]);
+  //       });
+  //     } else if (first == 0) {
+  //       $('.showNoRecom').show();
+
+  //       $http.get(URL + 'best').success(function(foobar){
+  //         $scope.noRecom.push(foobar[0]);
+  //         $scope.noRecom.push(foobar[1]);
+  //         $scope.noRecom.push(foobar[2]);
+  //         $scope.noRecom.push(foobar[3]);
+  //       });
+  //     }
+  //   });
+  // };
+
+  // function containsAll(needles, moreNeedles, haystack){
+  //   if((haystack.indexOf(needles) > -1) && (haystack.indexOf(moreNeedles) > -1)) {
+  //     for (var j = 0; j < haystack.length; j++) {
+  //       if (recommendation[haystack[j]] == null) {
+  //         recommendation[haystack[j]] = 1;
+  //       } else {
+  //         recommendation[haystack[j]] += 1;
+  //       }
+  //     }
+  //   }
+  // }
   
+  $(document).ready(function(){
+    $('#members_value').focus();
+  });
+
 }]);

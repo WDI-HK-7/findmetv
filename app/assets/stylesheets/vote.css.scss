@@ -35,3 +35,47 @@
   color: #3020C8;
   border-color: #3020C8;
 }
+
+.inputMargin {
+  margin-bottom: 35px;
+}
+
+.rightTitle {
+  text-align: right;
+  border-top: dashed 1px black;
+  padding-top: 10px;
+}
+
+.showTitle {
+  text-align: left;
+  border-bottom: dashed 1px black;
+  padding-bottom: 10px;
+  margin-top: -20px;
+}
+
+h2 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Watch {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.box {
+  border: dashed 2px black;
+  padding: 10px;
+}
+
+#members_dropdown {
+  margin-top: 42px;
+}
+
+.angucomplete-selected-row {
+  background-color: #4040d8;
+}
+
+.showRecom:hover {
+  opacity: 0.5;
+}

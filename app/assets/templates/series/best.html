@@ -9,6 +9,23 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-2">
+      
+      <div ng-controller="SeriesBestCtrl">
+        <div class="btn-group" dropdown on-toggle="toggled(open)">
+          <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+            Button dropdown <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </div>
+      </div>
+
+
       <div class="btn-group">
         <button type="button" class="btn btn-default btn-lg dropdown-toggle button1" data-toggle="dropdown" aria-expanded="false">
           By length <span class="caret"></span>

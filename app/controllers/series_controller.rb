@@ -21,9 +21,8 @@ class SeriesController < ApplicationController
       }
     else
       @serie.update(serie_params)
+      render 'index'
     end
-
-    render 'index'
   end
 
   def findByName
@@ -53,7 +52,7 @@ class SeriesController < ApplicationController
   def worst
     @series = Serie.order(dislike: :desc).limit(12)
   end
-
+  
   private
 
   def serie_params
